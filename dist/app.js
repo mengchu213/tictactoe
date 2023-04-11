@@ -1,6 +1,3 @@
-const prevButton = document.getElementById("previous");
-const nextButton = document.getElementById("next");
-
 const gameBoard = [
   ["", "", ""],
   ["", "", ""],
@@ -19,16 +16,9 @@ const handleCellClick = (event) => {
   const col = parseInt(clickedCell.getAttribute("data-col"));
   if (gameBoard[row][col] === "" && !gameEnded) {
     gameBoard[row][col] = currentPlayer;
-    clickedCell.textContent = currentPlayer;
-    updateUI();
-    saveMove();
-    const winner = checkWinner();
-    if (winner) {
-      gameEnded = true;
-      currentPlayer = winner === "Tie" ? currentPlayer : winner;
-      updateUI();
-      return;
-    }
+    gameHistory.push(JSON.parse(JSON.stringify(gameBoard)));
+    currentMoveIndex = gameHistory.length - 1;
+    checkForWin(row, col);
     currentPlayer = currentPlayer === "X" ? "O" : "X";
     updateUI();
   }
@@ -48,32 +38,67 @@ const updateUI = () => {
     }
   }
   const message = gameEnded
-    ? `Player ${currentPlayer} wins!`
+    ? `Player ${currentPlayer === "X" ? "O" : "X"} wins!`
     : `Player ${currentPlayer}'s turn`;
   gameStatusElement.textContent = message;
 };
 
-const saveMove = () => {
-  gameHistory.push(JSON.parse(JSON.stringify(gameBoard)));
+const handlePreviousButtonClick = () => {
+  if (currentMoveIndex > 0) {
+    currentMoveIndex--;
+    gameBoard = JSON.parse(JSON.stringify(gameHistory[currentMoveIndex]));
+    updateUI();
+  }
 };
 
-const checkWinner = () => {};
+const handleNextButtonClick = () => {
+  if (currentMoveIndex < gameHistory.length - 1) {
+    currentMoveIndex++;
+    gameBoard = JSON.parse(JSON.stringify(gameHistory[currentMoveIndex]));
+    updateUI();
+  }
+};
 
-const updateGameBoardFromHistory = (index) => {
-  gameBoard = JSON.parse(JSON.stringify(gameHistory[index]));
+const handleResetButtonClick = () => {
+  gameBoard = [
+    ["", "", ""],
+    ["", "", ""],
+    ["", "", ""],
+  ];
+  currentPlayer = "X";
+  gameHistory.length = 0;
+  gameEnded = false;
+  currentMoveIndex = -1;
   updateUI();
 };
 
-const handlePrevClick = () => {
-  if (currentMoveIndex > 0) {
-    currentMoveIndex--;
-    updateGameBoardFromHistory(currentMoveIndex);
+const checkForWin = (row, col) => {
+  const winningPlayer = gameBoard[row][col];
+
+  if (
+    (gameBoard[row][0] === winningPlayer &&
+      gameBoard[row][1] === winningPlayer &&
+      gameBoard[row][2] === winningPlayer) ||
+    (gameBoard[0][col] === winningPlayer &&
+      gameBoard[1][col] === winningPlayer &&
+      gameBoard[2][col] === winningPlayer) ||
+    (row === col &&
+      gameBoard[0][0] === winningPlayer &&
+      gameBoard[1][1] === winningPlayer &&
+      gameBoard[2][2] === winningPlayer) ||
+    (row + col === 2 &&
+      gameBoard[0][2] === winningPlayer &&
+      gameBoard[1][1] === winningPlayer &&
+      gameBoard[2][0] === winningPlayer)
+  ) {
+    gameEnded = true;
   }
 };
 
-const handleNextClick = () => {
-  if (currentMoveIndex < gameHistory.length - 1) {
-    currentMoveIndex++;
-    updateGameBoardFromHistory(currentMoveIndex);
-  }
-};
+const previousButton = document.getElementById("previous");
+const nextButton = document.getElementById("next");
+const resetButton = document.getElementById("reset");
+
+previousButton.addEventListener("click", handlePreviousButtonClick);
+nextButton.addEventListener("click", handleNextButtonClick);
+resetButton.addEventListener("click", handleResetButtonClick);

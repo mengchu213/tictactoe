@@ -1,73 +1,74 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <script src="https://cdn.tailwindcss.com"></script>
-    <title>Document</title>
-    <link rel="stylesheet" href="output.css" />
-  </head>
-  <body>
-    <div class="container">
-      <div id="game-status"></div>
-      <div class="game-status">
-        <div class="row">
-          <div
-            data-row="0"
-            data-col="0"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-          <div
-            data-row="0"
-            data-col="1"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-          <div
-            data-row="0"
-            data-col="2"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-        </div>
-        <div class="row">
-          <div
-            data-row="1"
-            data-col="0"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-          <div
-            data-row="1"
-            data-col="1"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-          <div
-            data-row="1"
-            data-col="2"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-        </div>
-        <div class="row">
-          <div
-            data-row="2"
-            data-col="0"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-          <div
-            data-row="2"
-            data-col="1"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-          <div
-            data-row="2"
-            data-col="2"
-            class="cell border border-solid border-gray-300 p-4"
-          ></div>
-        </div>
-      </div>
-      <button id="prev-btn">Previous</button>
-      <button id="next-btn">Next</button>
-      <button id="reset-btn">Reset</button>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
+  <title>Tic Tac Toe</title>
+  <style>
+    .cell {
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 py-10">
+    <div id="container" class="min-h-screen bg-gray-100 flex flex-col items-center justify-center">
+
+    <h1 class="text-center text-4xl font-semibold mb-10">Tic Tac Toe</h1>
+    <div id="game-board" class="grid grid-cols-3 mb-6">
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="0"
+        data-col="0"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="0"
+        data-col="1"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="0"
+        data-col="2"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="1"
+        data-col="0"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="1"
+        data-col="1"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="1"
+        data-col="2"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="2"
+        data-col="0"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="2"
+        data-col="1"
+      ></div>
+      <div
+        class="cell bg-white w-16 h-16 flex items-center justify-center text-2xl font-semibold border border-gray-300 rounded"
+        data-row="2"
+        data-col="2"
+      ></div>
     </div>
+    <div id="game-status" class="text-center mb-4"></div>
+    <div class="flex justify-center space-x-4">
+        <button id="previous" class="bg-blue-500 text-white px-4 py-2 rounded">Previous</button>
+        <button id="next" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+        <button id="reset" class="bg-red-500 text-white px-4 py-2 rounded">Reset</button>
+      </div>
+      
     <script src="app.js"></script>
   </body>
 </html>
