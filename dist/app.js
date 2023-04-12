@@ -46,7 +46,7 @@ const updateUI = () => {
 const handlePreviousButtonClick = () => {
   if (currentMoveIndex > 0) {
     currentMoveIndex--;
-    gameBoard = JSON.parse(JSON.stringify(gameHistory[currentMoveIndex]));
+    updateGameBoard(gameHistory[currentMoveIndex]);
     updateUI();
   }
 };
@@ -54,22 +54,30 @@ const handlePreviousButtonClick = () => {
 const handleNextButtonClick = () => {
   if (currentMoveIndex < gameHistory.length - 1) {
     currentMoveIndex++;
-    gameBoard = JSON.parse(JSON.stringify(gameHistory[currentMoveIndex]));
+    updateGameBoard(gameHistory[currentMoveIndex]);
     updateUI();
   }
 };
 
 const handleResetButtonClick = () => {
-  gameBoard = [
+  updateGameBoard([
     ["", "", ""],
     ["", "", ""],
     ["", "", ""],
-  ];
+  ]);
   currentPlayer = "X";
   gameHistory.length = 0;
   gameEnded = false;
   currentMoveIndex = -1;
   updateUI();
+};
+
+const updateGameBoard = (newBoard) => {
+  for (let row = 0; row < 3; row++) {
+    for (let col = 0; col < 3; col++) {
+      gameBoard[row][col] = newBoard[row][col];
+    }
+  }
 };
 
 const checkForWin = (row, col) => {
