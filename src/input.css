@@ -2,9 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  overflow: hidden;
+}
 .cell {
   cursor: pointer;
+  display: block;
+  text-align: center;
+  line-height: 65px;
 }
+
 #game-board > .cell {
   margin: 0;
+}
+
+#main-menu {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+#game-board,
+#game-controls {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2px;
+  width: 200px;
+}
+#current-turn-display {
+  margin-top: 10px;
+  font-size: 1.5em;
+  font-weight: bold;
 }
