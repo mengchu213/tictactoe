@@ -5,7 +5,7 @@ const gameBoard = [
 ];
 
 let currentPlayer = "X";
-const gameHistory = [];
+// const gameHistory = [];
 const gameHistoryData = [];
 let gameEnded = false;
 let currentMoveIndex = -1;
@@ -251,16 +251,29 @@ const handleResetButtonClick = () => {
   currentMoveIndex = -1;
   updateUI();
 };
-const showHistory = () => {
-  const gameHistoryElement = document.createElement("ul");
-  gameHistory.forEach((board) => {
-    const boardItem = document.createElement("li");
-    boardItem.textContent = JSON.stringify(board);
-    gameHistoryElement.appendChild(boardItem);
-  });
-  gameBoardElement.appendChild(gameHistoryElement);
-};
+const gameHistory = [
+  [
+    ["X", "O", "X"],
+    ["O", "X", "O"],
+    ["X", "O", "X"],
+  ],
+  [
+    ["X", "O", "X"],
+    ["O", "X", "O"],
+    ["X", "O", "O"],
+  ],
+];
 
+function showHistory() {
+  let historyString = "";
+  for (let i = 0; i < gameHistory.length; i++) {
+    historyString += `Move ${i + 1}: ${gameHistory[i]}\n`;
+  }
+  alert(historyString);
+  const historyElement = document.createElement("pre");
+  historyElement.textContent = historyString;
+  document.body.appendChild(historyElement);
+}
 const updateGameBoard = (newBoard) => {
   for (let row = 0; row < 3; row++) {
     for (let col = 0; col < 3; col++) {
@@ -310,6 +323,8 @@ const updateUI = () => {
   if (gameEnded) {
     const winner = currentPlayer === "X" ? "O" : "X";
     winnerInfoElement.textContent = `Player ${winner} wins!`;
+  } else if (getAvailableMoves(gameBoard).length === 0) {
+    winnerInfoElement.textContent = `It's a tie!`;
   } else {
     winnerInfoElement.textContent = `Player ${currentPlayer}'s turn`;
   }
@@ -421,6 +436,18 @@ playVsAIButton.addEventListener("click", () => {
     difficulty = event.target.value;
   });
 });
+const historyButton = document.getElementById("history");
+console.log("Script loaded");
+
+if (historyButton) {
+  console.log("History button found");
+  historyButton.addEventListener("click", () => {
+    console.log("History button clicked");
+    showHistory();
+  });
+} else {
+  console.error("History button not found");
+}
 
 const previousButton = document.getElementById("previous");
 const nextButton = document.getElementById("next");
