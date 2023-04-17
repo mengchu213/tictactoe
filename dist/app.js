@@ -5,7 +5,6 @@ const gameBoard = [
 ];
 
 let currentPlayer = "X";
-// const gameHistory = [];
 const gameHistoryData = [];
 let gameEnded = false;
 let currentMoveIndex = -1;
